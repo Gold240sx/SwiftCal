@@ -14,6 +14,10 @@ struct PersistenceController {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
         
+        // Create preview settings
+        let settings = CalendarViewSettings(context: viewContext)
+        settings.showOnlyMonthDays = false
+        
         let startDate = Calendar.current.dateInterval(of: .month, for: .now)!.start
         
         for dayOffset in 0..<30 {
