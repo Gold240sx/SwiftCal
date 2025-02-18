@@ -117,7 +117,7 @@ struct CalendarView: View {
                                         createMonthDays(for: currentDate)
                                         createMonthDays(for: currentDate.startOfNextMonth)
                                         updateDaysFetchRequest()
-                                    } else if day.date! <= Date().endOfDay {
+                                    } else if day.date! < Date().startOfTomorrow {
                                         day.didStudy.toggle()
                                         do {
                                             try viewContext.save()
