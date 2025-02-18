@@ -67,4 +67,8 @@ extension Date {
         let endDate = Calendar.current.date(byAdding: .day, value: numberOfSuffixDays, to: self.endOfMonth)!
         return endDate
     }
+
+    var startOfDay: Date {
+        Calendar.current.startOfDay(for: self)
+    }
 }

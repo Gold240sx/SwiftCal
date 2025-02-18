@@ -14,6 +14,11 @@ struct CalendarView: View {
     @FetchRequest(
         sortDescriptors: []
     ) private var settings: FetchedResults<CalendarViewSettings>
+    @FetchRequest private var days: FetchedResults<Day>
+    
+    @State private var showingSettings = false
+    @State private var currentDate = Date()
+
     
     private struct WeekDay: Identifiable {
         let id = UUID()
@@ -29,11 +34,6 @@ struct CalendarView: View {
         WeekDay(name: "F"),
         WeekDay(name: "S")
     ]
-
-    @State private var showingSettings = false
-    @State private var currentDate = Date()
-
-    @FetchRequest private var days: FetchedResults<Day>
 
     init() {
         _days = FetchRequest(
@@ -56,6 +56,22 @@ struct CalendarView: View {
             set: { newValue in
                 if let settings = settings.first {
                     settings.showOnlyMonthDays = newValue
+                    try? viewContext.save()
+                }
+            }
+        )
+    }
+
+    private var showMonthCarots: Bool {
+        settings.first?.showMonthCarots ?? true
+    }
+
+    private var showMonthCarotsBinding: Binding<Bool> {
+        Binding(
+            get: { settings.first?.showMonthCarots ?? true },
+            set: { newValue in
+                if let settings = settings.first {
+                    settings.showMonthCarots = newValue
                     try? viewContext.save()
                 }
             }
@@ -101,11 +117,12 @@ struct CalendarView: View {
                                         createMonthDays(for: currentDate)
                                         createMonthDays(for: currentDate.startOfNextMonth)
                                         updateDaysFetchRequest()
-                                    } else if day.date!.dayInt <= Date().dayInt {
+                                    } else if day.date! <= Date().endOfDay {
                                         day.didStudy.toggle()
                                         do {
                                             try viewContext.save()
-                                            print("👆 \(day.date!.dayInt) now studied.")
+                                            let streak = StreakView.getStreakValue(context: viewContext)
+                                            print("👆 \(day.date!.dayInt) now studied. Current streak: \(streak) days")
                                         } catch {
                                             print("Failed to save context: \(error)")
                                         }
@@ -123,11 +140,52 @@ struct CalendarView: View {
             }
             .navigationTitle(currentDate.formatted(.dateTime.month(.wide)))
             .toolbar {
-                Button {
-                    showingSettings = true
-                } label: {
-                    Image(systemName: "gear")
-                        .foregroundStyle(.orange)
+                ToolbarItem(placement: .topBarLeading) {
+                    HStack {
+                        if showMonthCarots {
+                            Button {
+                                currentDate = currentDate.startOfPreviousMonth
+                                createMonthDays(for: currentDate.startOfPreviousMonth)
+                                createMonthDays(for: currentDate)
+                                createMonthDays(for: currentDate.startOfNextMonth)
+                                updateDaysFetchRequest()
+                            } label: {
+                                Image(systemName: "chevron.left")
+                                    .foregroundStyle(.orange)
+                            }
+                            
+                            Button {
+                                currentDate = Date()
+                                createMonthDays(for: currentDate.startOfPreviousMonth)
+                                createMonthDays(for: currentDate)
+                                createMonthDays(for: currentDate.startOfNextMonth)
+                                updateDaysFetchRequest()
+                            } label: {
+                                Text("Today")
+                                    .foregroundStyle(.orange)
+                            }
+                            
+                            Button {
+                                currentDate = currentDate.startOfNextMonth
+                                createMonthDays(for: currentDate.startOfPreviousMonth)
+                                createMonthDays(for: currentDate)
+                                createMonthDays(for: currentDate.startOfNextMonth)
+                                updateDaysFetchRequest()
+                            } label: {
+                                Image(systemName: "chevron.right")
+                                    .foregroundStyle(.orange)
+                            }
+                        }
+                    }
+                }
+                
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        showingSettings = true
+                    } label: {
+                        Image(systemName: "gear")
+                            .foregroundStyle(.orange)
+                    }
                 }
             }
             .padding()
@@ -135,6 +193,7 @@ struct CalendarView: View {
                 NavigationView {
                     Form {
                         Toggle("Hide Days of Previous and Next Months", isOn: showOnlyMonthDaysBinding)
+                        Toggle("Show Month Navigation", isOn: showMonthCarotsBinding)
                     }
                     .navigationTitle("Settings")
                     .navigationBarTitleDisplayMode(.inline)
@@ -156,6 +215,7 @@ struct CalendarView: View {
                 if settings.isEmpty {
                     let newSettings = CalendarViewSettings(context: viewContext)
                     newSettings.showOnlyMonthDays = false
+                    newSettings.showMonthCarots = true
                     try? viewContext.save()
                 }
             }
