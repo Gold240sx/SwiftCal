@@ -55,7 +55,11 @@
 		E61EDB202D661CD200202BF2 /* Exceptions for "SwiftCal" folder in "SwiftCalWidgetExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Calculations.swift,
 				CalendarHeaderView.swift,
+				"Date+Ext.swift",
+				Persistence.swift,
+				SwiftCal.xcdatamodeld,
 			);
 			target = E61EDB032D66102800202BF2 /* SwiftCalWidgetExtension */;
 		};

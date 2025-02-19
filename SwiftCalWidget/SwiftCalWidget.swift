@@ -7,30 +7,50 @@
 
 import WidgetKit
 import SwiftUI
+import CoreData
 
 struct Provider: TimelineProvider {
-    func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), emoji: "😀")
+    @State private var currentDate = Date()
+    let viewContext = PersistenceController.shared.container.viewContext
+    
+    var dayFetchRequest: NSFetchRequest<Day> {
+        let request = Day.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \Day.date, ascending: true)]
+        request.predicate = NSPredicate(
+            format: "(date >= %@) AND (date <= %@)",
+            currentDate.startOfCalendarWithPrefixDays as CVarArg,
+            currentDate.endOfCalendarWithSuffixDays as CVarArg)
+        return request
+    }
+    
+    func placeholder(in context: Context) -> CalendarEntry {
+        CalendarEntry(date: Date(), days: [])
     }
 
-    func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date(), emoji: "😀")
+    func getSnapshot(in context: Context, completion: @escaping (CalendarEntry) -> ()) {
+        // fetch days based off of view context.
+        do {
+            let days = try viewContext.fetch(dayFetchRequest)
+            let entry = CalendarEntry(date: Date(), days: days)
+            completion(entry)
+        } catch {
+            print("Widget failed to fetch days: \(error)")
+        }
+
+
+        let entry = CalendarEntry(date: Date(), days: [])
         completion(entry)
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        var entries: [SimpleEntry] = []
-
-        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
-        let currentDate = Date()
-        for hourOffset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, emoji: "😀")
-            entries.append(entry)
+        do {
+            let days = try viewContext.fetch(dayFetchRequest)
+            let entry = CalendarEntry(date: Date(), days: days)
+            let timeline = Timeline(entries: [entry], policy: .after(.now.endOfDay))
+            completion(timeline)
+        } catch {
+            print("Widget failed to fetch days: \(error)")
         }
-
-        let timeline = Timeline(entries: entries, policy: .atEnd)
-        completion(timeline)
     }
 
 //    func relevances() async -> WidgetRelevances<Void> {
@@ -38,13 +58,13 @@ struct Provider: TimelineProvider {
 //    }
 }
 
-struct SimpleEntry: TimelineEntry {
+struct CalendarEntry: TimelineEntry {
     let date: Date
-    let emoji: String
+    let days: [Day]
 }
 
 struct SwiftCalWidgetEntryView : View {
-    var entry: Provider.Entry
+    var entry: CalendarEntry
     let columns = Array(repeating: GridItem(.flexible()), count: 7)
 
     var body: some View {
@@ -70,10 +90,12 @@ struct SwiftCalWidgetEntryView : View {
                             .background(
                                 Circle()
                                     .foregroundStyle(Color.orange.opacity(0.3))
+                                    .scaleEffect(1.5)
                             )
                     }
                 }
             }
+            .padding(.leading, 6)
         }
         .padding()
     }
@@ -102,6 +124,6 @@ struct SwiftCalWidget: Widget {
 #Preview(as: .systemMedium) {
     SwiftCalWidget()
 } timeline: {
-    SimpleEntry(date: .now, emoji: "😀")
-    SimpleEntry(date: .now, emoji: "🤩")
+    CalendarEntry(date: .now, days: [])
+    CalendarEntry(date: .now, days: [])
 }
