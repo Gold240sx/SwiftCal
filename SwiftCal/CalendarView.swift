@@ -55,6 +55,7 @@ struct CalendarView: View {
                     // Force widget to update immediately
                     WidgetCenter.shared.reloadAllTimelines()
                 }
+                   WidgetCenter.shared.reloadAllTimelines()
             }
         )
     }
