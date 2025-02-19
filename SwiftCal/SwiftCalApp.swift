@@ -10,7 +10,6 @@ import SwiftUI
 @main
 struct SwiftCalApp: App {
     let persistenceController = PersistenceController.shared
-<<<<<<< HEAD
 
     var body: some Scene {
         WindowGroup {
@@ -21,7 +20,6 @@ struct SwiftCalApp: App {
                     .tabItem { Label("Streak", systemImage: "arrow.triangle.2.circlepath") }
             }
             .environment(\.managedObjectContext, persistenceController.container.viewContext)
-=======
     @State private var selectedTab = 0
 
     var body: some Scene {
@@ -38,7 +36,6 @@ struct SwiftCalApp: App {
             .onOpenURL { url in
                 selectedTab = url.absoluteString == "calendar" ? 0 : 1
             }
->>>>>>> 665bf18 (Update)
         }
     }
 }

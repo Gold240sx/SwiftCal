@@ -1,4 +1,3 @@
-
 echo "
 # Xcode
 .DS_Store
@@ -22,4 +21,6 @@ DerivedData/
 *.dSYM
 timeline.xctimeline
 playground.xcworkspace
+.git/
+*.xcuserstate
 " > .gitignore

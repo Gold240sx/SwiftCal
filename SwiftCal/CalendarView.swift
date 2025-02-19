@@ -19,11 +19,8 @@ struct CalendarView: View {
     
     @State private var showingSettings = false
     @State private var currentDate = Date()
-<<<<<<< HEAD
-=======
     @State private var dragOffset: CGFloat = 0
     @State private var isDragging = false
->>>>>>> 665bf18 (Update)
 
     init() {
         // Start with current date's calendar range
@@ -48,9 +45,6 @@ struct CalendarView: View {
             set: { newValue in
                 if let settings = settings.first {
                     settings.showOnlyMonthDays = newValue
-<<<<<<< HEAD
-                    try? viewContext.save()
-=======
                     do {
                         try viewContext.save()
                         // Reload widget to reflect the new setting
@@ -58,7 +52,6 @@ struct CalendarView: View {
                     } catch {
                         print("Failed to save settings: \(error)")
                     }
->>>>>>> 665bf18 (Update)
                 }
             }
         )
@@ -88,9 +81,7 @@ struct CalendarView: View {
         )
     }
 
-<<<<<<< HEAD
-=======
-     private func handleDayTap(_ day: Day) {
+    private func handleDayTap(_ day: Day) {
         if day.date!.monthInt != currentDate.monthInt {
             currentDate = day.date!
             createMonthDays(for: currentDate.startOfPreviousMonth)
@@ -120,30 +111,12 @@ struct CalendarView: View {
         }
     }
 
->>>>>>> 665bf18 (Update)
     var body: some View {
         NavigationView {
             VStack {
                 CalendarHeaderView()
                 
-<<<<<<< HEAD
-                LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 7)) {
-                    ForEach(days) { day in
-                        if !showOnlyMonthDays || day.date!.monthInt == currentDate.monthInt {
-                            Text(day.date!.formatted(.dateTime.day()))
-                                .fontWeight(.semibold)
-                                .foregroundStyle(day.didStudy ? Color.orange :
-                                                    day.date!.monthInt != currentDate.monthInt ? Color.secondary.opacity(0.3) : .secondary)
-                                .frame(maxWidth: .infinity, minHeight: 40)
-                                .background(
-                                    Circle()
-                                        .foregroundStyle(Color.orange.opacity(day.didStudy ? 0.3 : 0.0))
-                                )
-                                .onTapGesture {
-                                    if day.date!.monthInt != currentDate.monthInt {
-                                        currentDate = day.date!
-=======
-              CalendarGridView(
+                CalendarGridView(
                     days: days,
                     currentDate: currentDate,
                     showOnlyMonthDays: showOnlyMonthDays,
@@ -152,7 +125,7 @@ struct CalendarView: View {
                 )
                 Spacer()
             }
-                      .gesture(
+            .gesture(
                 DragGesture(minimumDistance: 50)
                     .onChanged { gesture in
                         isDragging = true
@@ -179,43 +152,6 @@ struct CalendarView: View {
                                         withAnimation(.easeInOut(duration: 0.3)) {
                                             dragOffset = 0
                                         }
->>>>>>> 665bf18 (Update)
-                                        createMonthDays(for: currentDate.startOfPreviousMonth)
-                                        createMonthDays(for: currentDate)
-                                        createMonthDays(for: currentDate.startOfNextMonth)
-                                        updateDaysFetchRequest()
-<<<<<<< HEAD
-                                    } else if day.date! < Date().startOfTomorrow {
-                                        day.didStudy.toggle()
-                                        do {
-                                            try viewContext.save()
-                                            WidgetCenter.shared.reloadTimelines(ofKind: "SwiftCalWidget")
-                                            
-                                            // Fetch the days and calculate streak
-                                            let fetchRequest: NSFetchRequest<Day> = Day.fetchRequest()
-                                            fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \Day.date, ascending: false)]
-                                            fetchRequest.predicate = NSPredicate(format: "date <= %@", Date().endOfDay as CVarArg)
-                                            
-                                            if let days = try? viewContext.fetch(fetchRequest) {
-                                                let streak = Calculations.calculateStreakValue(days: days)
-                                                print("👆 \(day.date!.dayInt) now studied. Current streak: \(streak) days")
-                                            }
-                                        } catch {
-                                            print("Failed to save context: \(error)")
-                                        }
-                                    } else {
-                                        print("Can't study in the future!!")
-                                    }
-                                }
-                        } else {
-                            Color.clear
-                                .frame(maxWidth: .infinity, minHeight: 40)
-                        }
-                    }
-                }
-                Spacer()
-            }
-=======
                                     }
                                 } else {
                                     withAnimation { dragOffset = 0 }
@@ -251,7 +187,6 @@ struct CalendarView: View {
                         isDragging = false
                     }
             )
->>>>>>> 665bf18 (Update)
             .navigationTitle(currentDate.formatted(.dateTime.month(.wide).year()))
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
