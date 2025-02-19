@@ -85,13 +85,15 @@ struct CalendarView: View {
             createMonthDays(for: currentDate.startOfPreviousMonth)
             createMonthDays(for: currentDate)
             createMonthDays(for: currentDate.startOfNextMonth)
-        } else if day.date < Date().startOfTomorrow {
+          WidgetCenter.shared.reloadAllTimelines()
+       } else if day.date < Date().startOfTomorrow {
             day.didStudy.toggle()
             // Force widget to update
             WidgetCenter.shared.reloadAllTimelines()
         } else {
             print("Can't study in the future!!")
         }
+           WidgetCenter.shared.reloadAllTimelines()
     }
 
     var body: some View {
