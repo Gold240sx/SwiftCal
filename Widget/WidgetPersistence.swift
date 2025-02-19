@@ -1,4 +1,4 @@
-import CoreData
+
 
 struct WidgetPersistence {
     static let shared = WidgetPersistence()

@@ -6,34 +6,35 @@
 //
 
 import SwiftUI
-import CoreData
+import SwiftData
 import WidgetKit
 
 struct CalendarView: View {
-    @Environment(\.managedObjectContext) private var viewContext
-
-    @FetchRequest(
-        sortDescriptors: []
-    ) private var settings: FetchedResults<CalendarViewSettings>
-    @FetchRequest private var days: FetchedResults<Day>
+    @Environment(\.modelContext) private var context
+    @State private var currentDate = Date()
+    
+    // Remove the queryDateRange state and use computed properties
+    private var startDate: Date {
+        currentDate.startOfCalendarWithPrefixDays
+    }
+    
+    private var endDate: Date {
+        currentDate.endOfCalendarWithSuffixDays
+    }
+    
+    // Use computed property for the query
+    @Query(sort: \Day.date) private var allDays: [Day]
+    private var days: [Day] {
+        allDays.filter { day in
+            day.date >= startDate && day.date <= endDate
+        }
+    }
+    
+    @Query private var settings: [CalendarViewSettings]
     
     @State private var showingSettings = false
-    @State private var currentDate = Date()
     @State private var dragOffset: CGFloat = 0
     @State private var isDragging = false
-
-    init() {
-        // Start with current date's calendar range
-        let currentDate = Date()
-        _days = FetchRequest(
-            sortDescriptors: [NSSortDescriptor(keyPath: \Day.date, ascending: true)],
-            predicate: NSPredicate(
-                format: "(date >= %@) AND (date <= %@)",
-                currentDate.startOfCalendarWithPrefixDays as CVarArg,
-                currentDate.endOfCalendarWithSuffixDays as CVarArg
-            )
-        )
-    }
 
     private var showOnlyMonthDays: Bool {
         settings.first?.showOnlyMonthDays ?? false
@@ -45,14 +46,16 @@ struct CalendarView: View {
             set: { newValue in
                 if let settings = settings.first {
                     settings.showOnlyMonthDays = newValue
-                    do {
-                        try viewContext.save()
-                        // Reload widget to reflect the new setting
-                        WidgetCenter.shared.reloadTimelines(ofKind: "SwiftCalWidget")
-                    } catch {
-                        print("Failed to save settings: \(error)")
-                    }
+                    // Force widget to update immediately
+                    WidgetCenter.shared.reloadAllTimelines()
+                } else {
+                    let newSettings = CalendarViewSettings()
+                    newSettings.showOnlyMonthDays = newValue
+                    context.insert(newSettings)
+                    // Force widget to update immediately
+                    WidgetCenter.shared.reloadAllTimelines()
                 }
+                   WidgetCenter.shared.reloadAllTimelines()
             }
         )
     }
@@ -67,48 +70,30 @@ struct CalendarView: View {
             set: { newValue in
                 if let settings = settings.first {
                     settings.showMonthCarots = newValue
-                    try? viewContext.save()
+                } else {
+                    let newSettings = CalendarViewSettings()
+                    newSettings.showMonthCarots = newValue
+                    context.insert(newSettings)
                 }
             }
-        )
-    }
-
-    private func updateDaysFetchRequest() {
-        days.nsPredicate = NSPredicate(
-            format: "(date >= %@) AND (date <= %@)",
-            currentDate.startOfCalendarWithPrefixDays as CVarArg,
-            currentDate.endOfCalendarWithSuffixDays as CVarArg
         )
     }
 
     private func handleDayTap(_ day: Day) {
-        if day.date!.monthInt != currentDate.monthInt {
-            currentDate = day.date!
+        if day.date.monthInt != currentDate.monthInt {
+            currentDate = day.date
             createMonthDays(for: currentDate.startOfPreviousMonth)
             createMonthDays(for: currentDate)
             createMonthDays(for: currentDate.startOfNextMonth)
-            updateDaysFetchRequest()
-        } else if day.date! < Date().startOfTomorrow {
+          WidgetCenter.shared.reloadAllTimelines()
+       } else if day.date < Date().startOfTomorrow {
             day.didStudy.toggle()
-            do {
-                try viewContext.save()
-                WidgetCenter.shared.reloadTimelines(ofKind: "SwiftCalWidget")
-                
-                // Fetch the days and calculate streak
-                let fetchRequest: NSFetchRequest<Day> = Day.fetchRequest()
-                fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \Day.date, ascending: false)]
-                fetchRequest.predicate = NSPredicate(format: "date <= %@", Date().endOfDay as CVarArg)
-                
-                if let days = try? viewContext.fetch(fetchRequest) {
-                    let streak = Calculations.calculateStreakValue(days: days)
-                    print("👆 \(day.date!.dayInt) now studied. Current streak: \(streak) days")
-                }
-            } catch {
-                print("Failed to save context: \(error)")
-            }
+            // Force widget to update
+            WidgetCenter.shared.reloadAllTimelines()
         } else {
             print("Can't study in the future!!")
         }
+           WidgetCenter.shared.reloadAllTimelines()
     }
 
     var body: some View {
@@ -117,7 +102,7 @@ struct CalendarView: View {
                 CalendarHeaderView()
                 
                 CalendarGridView(
-                    days: days,
+                    days: days,  // This will automatically update when currentDate changes
                     currentDate: currentDate,
                     showOnlyMonthDays: showOnlyMonthDays,
                     dragOffset: dragOffset,
@@ -172,7 +157,6 @@ struct CalendarView: View {
                                         createMonthDays(for: currentDate.startOfPreviousMonth)
                                         createMonthDays(for: currentDate)
                                         createMonthDays(for: currentDate.startOfNextMonth)
-                                        updateDaysFetchRequest()
                                     }
                                 } else {
                                     withAnimation { dragOffset = 0 }
@@ -197,7 +181,6 @@ struct CalendarView: View {
                                 createMonthDays(for: currentDate.startOfPreviousMonth)
                                 createMonthDays(for: currentDate)
                                 createMonthDays(for: currentDate.startOfNextMonth)
-                                updateDaysFetchRequest()
                             } label: {
                                 Image(systemName: "chevron.left")
                                     .foregroundStyle(.orange)
@@ -209,7 +192,6 @@ struct CalendarView: View {
                                 createMonthDays(for: currentDate.startOfPreviousMonth)
                                 createMonthDays(for: currentDate)
                                 createMonthDays(for: currentDate.startOfNextMonth)
-                                updateDaysFetchRequest()
                             } label: {
                                 Text("Today")
                                     .foregroundStyle(.orange)
@@ -220,7 +202,6 @@ struct CalendarView: View {
                                 createMonthDays(for: currentDate.startOfPreviousMonth)
                                 createMonthDays(for: currentDate)
                                 createMonthDays(for: currentDate.startOfNextMonth)
-                                updateDaysFetchRequest()
                             } label: {
                                 Image(systemName: "chevron.right")
                                     .foregroundStyle(.orange)
@@ -265,79 +246,97 @@ struct CalendarView: View {
                         date = date.startOfNextMonth
                     }
                 }
-                // Always update the fetch request to show current month
-                updateDaysFetchRequest()
                 
                 if settings.isEmpty {
-                    let newSettings = CalendarViewSettings(context: viewContext)
+                    let newSettings = CalendarViewSettings()
                     newSettings.showOnlyMonthDays = false
                     newSettings.showMonthCarots = true
-                    try? viewContext.save()
+                    context.insert(newSettings)
                 }
             }
         }
     }
     
     private func daysExist(for date: Date) -> Bool {
-        let fetchRequest: NSFetchRequest<Day> = Day.fetchRequest()
-        fetchRequest.predicate = NSPredicate(
-            format: "(date >= %@) AND (date <= %@)",
-            date.startOfMonth as CVarArg,
-            date.endOfMonth as CVarArg
+        let monthStart = date.startOfMonth
+        let monthEnd = date.endOfMonth
+        
+        let descriptor = FetchDescriptor<Day>(
+            predicate: #Predicate<Day> { day in
+                day.date >= monthStart && day.date <= monthEnd
+            }
         )
-        let count = (try? viewContext.count(for: fetchRequest)) ?? 0
-        return count > 0
+        
+        do {
+            let existingDays = try context.fetch(descriptor)
+            return !existingDays.isEmpty
+        } catch {
+            print("Failed to check if days exist: \(error)")
+            return false
+        }
     }
 
-    func createMonthDays(for date: Date) {
-        if !daysExist(for: date) {
-            // Get the start and end of the month
-            let startOfMonth = date.startOfMonth
-            let endOfMonth = Calendar.current.date(byAdding: DateComponents(month: 1, day: -1), to: startOfMonth)!
+    private func createMonthDays(for date: Date) {
+        let daysInMonth = date.numberOfDaysInMonth
+        let firstDayOfMonth = date.startOfMonth
+        let nextMonthStart = Calendar.current.date(byAdding: .month, value: 1, to: firstDayOfMonth)!
+        
+        let descriptor = FetchDescriptor<Day>(
+            predicate: #Predicate<Day> { day in
+                day.date >= firstDayOfMonth && day.date < nextMonthStart
+            }
+        )
+        
+        do {
+            let existingDays = try context.fetch(descriptor)
+            var seenDates: [Date: Day] = [:]
             
-            // Create a day for each date in the month
-            var currentDate = startOfMonth
-            while currentDate <= endOfMonth {
-                let newDay = Day(context: viewContext)
-                newDay.date = currentDate
-                newDay.didStudy = false
+            // Create days for the month
+            for dayOffset in 0..<daysInMonth {
+                let newDate = Calendar.current.date(byAdding: .day, value: dayOffset, to: firstDayOfMonth)!
                 
-                // Move to next day
-                currentDate = Calendar.current.date(byAdding: .day, value: 1, to: currentDate)!
+                if let existingDay = existingDays.first(where: { Calendar.current.isDate($0.date, inSameDayAs: newDate) }) {
+                    seenDates[newDate.startOfDay] = existingDay
+                } else {
+                    let day = Day(date: newDate)
+                    context.insert(day)
+                    seenDates[newDate.startOfDay] = day
+                }
             }
             
-            do {
-                try viewContext.save()
-                print("\(date.monthFullName) \(date.yearInt) days created")
-            } catch {
-                print("Failed to save context: \(error)")
+            // Remove duplicates
+            for day in existingDays {
+                if seenDates[day.date.startOfDay] != day {
+                    context.delete(day)
+                }
             }
+            
+        } catch {
+            print("Failed to cleanup duplicate days: \(error)")
         }
     }
 
     private func cleanupDuplicateDays(for date: Date) {
-        let fetchRequest: NSFetchRequest<Day> = Day.fetchRequest()
-        fetchRequest.predicate = NSPredicate(
-            format: "(date >= %@) AND (date <= %@)",
-            date.startOfMonth as CVarArg,
-            date.endOfMonth as CVarArg
+        let monthStart = date.startOfMonth
+        let monthEnd = date.endOfMonth
+        
+        let descriptor = FetchDescriptor<Day>(
+            predicate: #Predicate<Day> { day in
+                day.date >= monthStart && day.date <= monthEnd
+            }
         )
         
         do {
-            let existingDays = try viewContext.fetch(fetchRequest)
+            let existingDays = try context.fetch(descriptor)
             var seenDates: [Date: Day] = [:]
             
             for day in existingDays {
-                if let dayDate = day.date {
-                    if seenDates[dayDate] != nil {
-                        viewContext.delete(day)
-                    } else {
-                        seenDates[dayDate] = day
-                    }
+                if seenDates[day.date.startOfDay] != nil {
+                    context.delete(day)
+                } else {
+                    seenDates[day.date.startOfDay] = day
                 }
             }
-            
-            try viewContext.save()
         } catch {
             print("Failed to cleanup duplicate days: \(error)")
         }
@@ -345,5 +344,6 @@ struct CalendarView: View {
 }
 
 #Preview {
-    CalendarView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    CalendarView()
+        .modelContainer(for: [Day.self, CalendarViewSettings.self], inMemory: true)
 }
