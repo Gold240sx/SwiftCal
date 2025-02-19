@@ -6,15 +6,16 @@
 //
 
 import SwiftUI
-import CoreData
+import SwiftData
 
 struct StreakView: View {
+    @Environment(\.modelContext) private var context
     @State private var streakValue = 0
     
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Day.date, ascending: false)],
-        predicate: NSPredicate(format: "date <= %@", Date().endOfDay as CVarArg)
-    ) private var days: FetchedResults<Day>
+    @Query(sort: [SortDescriptor(\Day.date, order: .reverse)]) private var allDays: [Day]
+    private var days: [Day] {
+        allDays.filter { $0.date <= Date().endOfDay }
+    }
     
     var body: some View {
         VStack {
@@ -28,15 +29,15 @@ struct StreakView: View {
            
         }.offset(y: -20)
             .onAppear { 
-                streakValue = Calculations.calculateStreakValue(days: Array(days))
+                streakValue = Calculations.calculateStreakValue(days: days)
             }
             .onChange(of: days.count) { 
-                streakValue = Calculations.calculateStreakValue(days: Array(days))
+                streakValue = Calculations.calculateStreakValue(days: days)
             }
     }
 }
 
 #Preview {
     StreakView()
-        .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        .modelContainer(for: Day.self, inMemory: true)
 }

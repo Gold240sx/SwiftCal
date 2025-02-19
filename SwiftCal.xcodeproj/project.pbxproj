@@ -42,22 +42,6 @@
 		E61EDB062D66102800202BF2 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		E61EDB082D66102800202BF2 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		E61EDB1B2D66108500202BF2 /* SwiftCalWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SwiftCalWidgetExtension.entitlements; sourceTree = "<group>"; };
-		E6DC95C82D665F9200F6A4D9 /* update.sample */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = update.sample; sourceTree = "<group>"; };
-		E6DC95CA2D665F9200F6A4D9 /* exclude */ = {isa = PBXFileReference; lastKnownFileType = text; path = exclude; sourceTree = "<group>"; };
-		E6DC95CC2D665F9200F6A4D9 /* main */ = {isa = PBXFileReference; lastKnownFileType = text; path = main; sourceTree = "<group>"; };
-		E6DC95CE2D665F9200F6A4D9 /* main */ = {isa = PBXFileReference; lastKnownFileType = text; path = main; sourceTree = "<group>"; };
-		E6DC95D22D665F9200F6A4D9 /* HEAD */ = {isa = PBXFileReference; lastKnownFileType = text; path = HEAD; sourceTree = "<group>"; };
-		E6DC95D42D665F9200F6A4D9 /* b737da52c131146f732a29da1c19df63643d7c */ = {isa = PBXFileReference; lastKnownFileType = file; path = b737da52c131146f732a29da1c19df63643d7c; sourceTree = "<group>"; };
-		E6DC95D62D665F9200F6A4D9 /* c8a567a9b8beceb4445533e6c16aa08d06668d */ = {isa = PBXFileReference; lastKnownFileType = file; path = c8a567a9b8beceb4445533e6c16aa08d06668d; sourceTree = "<group>"; };
-		E6DC95D82D665F9200F6A4D9 /* f51a48285dcec92337f401314e6ffa58f2840b */ = {isa = PBXFileReference; lastKnownFileType = file; path = f51a48285dcec92337f401314e6ffa58f2840b; sourceTree = "<group>"; };
-		E6DC95DD2D665F9200F6A4D9 /* main */ = {isa = PBXFileReference; lastKnownFileType = text; path = main; sourceTree = "<group>"; };
-		E6DC95DF2D665F9200F6A4D9 /* main */ = {isa = PBXFileReference; lastKnownFileType = text; path = main; sourceTree = "<group>"; };
-		E6DC95E42D665F9200F6A4D9 /* COMMIT_EDITMSG */ = {isa = PBXFileReference; lastKnownFileType = text; path = COMMIT_EDITMSG; sourceTree = "<group>"; };
-		E6DC95E52D665F9200F6A4D9 /* config */ = {isa = PBXFileReference; lastKnownFileType = text; path = config; sourceTree = "<group>"; };
-		E6DC95E62D665F9200F6A4D9 /* description */ = {isa = PBXFileReference; lastKnownFileType = text; path = description; sourceTree = "<group>"; };
-		E6DC95E72D665F9200F6A4D9 /* FETCH_HEAD */ = {isa = PBXFileReference; lastKnownFileType = text; path = FETCH_HEAD; sourceTree = "<group>"; };
-		E6DC95E82D665F9200F6A4D9 /* HEAD */ = {isa = PBXFileReference; lastKnownFileType = text; path = HEAD; sourceTree = "<group>"; };
-		E6DC95E92D665F9200F6A4D9 /* index */ = {isa = PBXFileReference; lastKnownFileType = file; path = index; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -72,10 +56,12 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Calculations.swift,
+				CalendarGridView.swift,
 				CalendarHeaderView.swift,
 				"Date+Ext.swift",
-				Persistence.swift,
-				SwiftCal.xcdatamodeld,
+				Models/CalendarViewSettings.swift,
+				Models/Day.swift,
+				Shared/StoreConfig.swift,
 			);
 			target = E61EDB032D66102800202BF2 /* SwiftCalWidgetExtension */;
 		};
@@ -147,172 +133,6 @@
 				E61EDB082D66102800202BF2 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		E6DC95C92D665F9200F6A4D9 /* hooks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = hooks;
-			sourceTree = "<group>";
-		};
-		E6DC95CB2D665F9200F6A4D9 /* info */ = {
-			isa = PBXGroup;
-			children = (
-				E6DC95CA2D665F9200F6A4D9 /* exclude */,
-			);
-			path = info;
-			sourceTree = "<group>";
-		};
-		E6DC95CD2D665F9200F6A4D9 /* heads */ = {
-			isa = PBXGroup;
-			children = (
-				E6DC95CC2D665F9200F6A4D9 /* main */,
-			);
-			path = heads;
-			sourceTree = "<group>";
-		};
-		E6DC95CF2D665F9200F6A4D9 /* origin */ = {
-			isa = PBXGroup;
-			children = (
-				E6DC95CE2D665F9200F6A4D9 /* main */,
-			);
-			path = origin;
-			sourceTree = "<group>";
-		};
-		E6DC95D02D665F9200F6A4D9 /* remotes */ = {
-			isa = PBXGroup;
-			children = (
-				E6DC95CF2D665F9200F6A4D9 /* origin */,
-			);
-			path = remotes;
-			sourceTree = "<group>";
-		};
-		E6DC95D12D665F9200F6A4D9 /* refs */ = {
-			isa = PBXGroup;
-			children = (
-				E6DC95CD2D665F9200F6A4D9 /* heads */,
-				E6DC95D02D665F9200F6A4D9 /* remotes */,
-			);
-			path = refs;
-			sourceTree = "<group>";
-		};
-		E6DC95D32D665F9200F6A4D9 /* logs */ = {
-			isa = PBXGroup;
-			children = (
-				E6DC95D12D665F9200F6A4D9 /* refs */,
-				E6DC95D22D665F9200F6A4D9 /* HEAD */,
-			);
-			path = logs;
-			sourceTree = "<group>";
-		};
-		E6DC95D52D665F9200F6A4D9 /* 4f */ = {
-			isa = PBXGroup;
-			children = (
-				E6DC95D42D665F9200F6A4D9 /* b737da52c131146f732a29da1c19df63643d7c */,
-			);
-			path = 4f;
-			sourceTree = "<group>";
-		};
-		E6DC95D72D665F9200F6A4D9 /* bf */ = {
-			isa = PBXGroup;
-			children = (
-				E6DC95D62D665F9200F6A4D9 /* c8a567a9b8beceb4445533e6c16aa08d06668d */,
-			);
-			path = bf;
-			sourceTree = "<group>";
-		};
-		E6DC95D92D665F9200F6A4D9 /* f1 */ = {
-			isa = PBXGroup;
-			children = (
-				E6DC95D82D665F9200F6A4D9 /* f51a48285dcec92337f401314e6ffa58f2840b */,
-			);
-			path = f1;
-			sourceTree = "<group>";
-		};
-		E6DC95DA2D665F9200F6A4D9 /* info */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = info;
-			sourceTree = "<group>";
-		};
-		E6DC95DB2D665F9200F6A4D9 /* pack */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = pack;
-			sourceTree = "<group>";
-		};
-		E6DC95DC2D665F9200F6A4D9 /* objects */ = {
-			isa = PBXGroup;
-			children = (
-				E6DC95D52D665F9200F6A4D9 /* 4f */,
-				E6DC95D72D665F9200F6A4D9 /* bf */,
-				E6DC95D92D665F9200F6A4D9 /* f1 */,
-				E6DC95DA2D665F9200F6A4D9 /* info */,
-				E6DC95DB2D665F9200F6A4D9 /* pack */,
-			);
-			path = objects;
-			sourceTree = "<group>";
-		};
-		E6DC95DE2D665F9200F6A4D9 /* heads */ = {
-			isa = PBXGroup;
-			children = (
-				E6DC95DD2D665F9200F6A4D9 /* main */,
-			);
-			path = heads;
-			sourceTree = "<group>";
-		};
-		E6DC95E02D665F9200F6A4D9 /* origin */ = {
-			isa = PBXGroup;
-			children = (
-				E6DC95DF2D665F9200F6A4D9 /* main */,
-			);
-			path = origin;
-			sourceTree = "<group>";
-		};
-		E6DC95E12D665F9200F6A4D9 /* remotes */ = {
-			isa = PBXGroup;
-			children = (
-				E6DC95E02D665F9200F6A4D9 /* origin */,
-			);
-			path = remotes;
-			sourceTree = "<group>";
-		};
-		E6DC95E22D665F9200F6A4D9 /* tags */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = tags;
-			sourceTree = "<group>";
-		};
-		E6DC95E32D665F9200F6A4D9 /* refs */ = {
-			isa = PBXGroup;
-			children = (
-				E6DC95DE2D665F9200F6A4D9 /* heads */,
-				E6DC95E12D665F9200F6A4D9 /* remotes */,
-				E6DC95E22D665F9200F6A4D9 /* tags */,
-			);
-			path = refs;
-			sourceTree = "<group>";
-		};
-		E6DC95EA2D665F9200F6A4D9 /* .git */ = {
-			isa = PBXGroup;
-			children = (
-				E6DC95C92D665F9200F6A4D9 /* hooks */,
-				E6DC95CB2D665F9200F6A4D9 /* info */,
-				E6DC95D32D665F9200F6A4D9 /* logs */,
-				E6DC95DC2D665F9200F6A4D9 /* objects */,
-				E6DC95E32D665F9200F6A4D9 /* refs */,
-				E6DC95E42D665F9200F6A4D9 /* COMMIT_EDITMSG */,
-				E6DC95E52D665F9200F6A4D9 /* config */,
-				E6DC95E62D665F9200F6A4D9 /* description */,
-				E6DC95E72D665F9200F6A4D9 /* FETCH_HEAD */,
-				E6DC95E82D665F9200F6A4D9 /* HEAD */,
-				E6DC95E92D665F9200F6A4D9 /* index */,
-			);
-			path = .git;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

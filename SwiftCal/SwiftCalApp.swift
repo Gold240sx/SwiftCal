@@ -6,31 +6,66 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct SwiftCalApp: App {
-    let persistenceController = PersistenceController.shared
-    @State private var selectedTab = 0
+    let modelContainer: ModelContainer
+    @State private var selectedTab: Tab = .calendar
+    
+    enum Tab {
+        case calendar
+        case streak
+    }
+    
+    init() {
+        do {
+            let schema = Schema([
+                Day.self,
+                CalendarViewSettings.self
+            ])
+            
+            let modelConfiguration = ModelConfiguration(
+                groupContainer: .identifier("group.com.michaelMartell.SwiftCal")
+            )
+            
+            modelContainer = try ModelContainer(for: schema, configurations: modelConfiguration)
+        } catch {
+            fatalError("Could not initialize ModelContainer: \(error)")
+        }
+    }
     
     var body: some Scene {
         WindowGroup {
-            TabView (selection: $selectedTab) {
-               CalendarView()
-                    .tabItem { Label("Calendar", systemImage: "calendar") }
-                    .tag(0)
+            TabView(selection: $selectedTab) {
+                CalendarView()
+                    .tabItem {
+                        Label("Calendar", systemImage: "calendar")
+                    }
+                    .tag(Tab.calendar)
+                
                 StreakView()
-                    .tabItem { Label("Streak", systemImage: "arrow.triangle.2.circlepath") }
-                    .tag(1)
+                    .tabItem {
+                        Label("Streak", systemImage: "flame")
+                    }
+                    .tag(Tab.streak)
             }
-            .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            .modelContainer(modelContainer)
             .onOpenURL { url in
-                selectedTab = url.absoluteString == "calendar" ? 0 : 1
+                switch url.host {
+                case "calendar":
+                    selectedTab = .calendar
+                case "streak":
+                    selectedTab = .streak
+                default:
+                    break
+                }
             }
         }
     }
 }
 
-//
-//#Preview {
-//    SwiftCalApp()
-//}
+#Preview {
+    CalendarView()
+        .modelContainer(for: [Day.self, CalendarViewSettings.self], inMemory: true)
+}
