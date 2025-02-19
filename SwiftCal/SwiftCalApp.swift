@@ -23,3 +23,8 @@ struct SwiftCalApp: App {
         }
     }
 }
+
+//
+//#Preview {
+//    SwiftCalApp()
+//}

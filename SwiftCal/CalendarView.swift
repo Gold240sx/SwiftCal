@@ -19,29 +19,15 @@ struct CalendarView: View {
     @State private var showingSettings = false
     @State private var currentDate = Date()
 
-    
-    private struct WeekDay: Identifiable {
-        let id = UUID()
-        let name: String
-    }
-
-    private let daysOfWeek = [
-        WeekDay(name: "S"),
-        WeekDay(name: "M"),
-        WeekDay(name: "T"),
-        WeekDay(name: "W"),
-        WeekDay(name: "T"),
-        WeekDay(name: "F"),
-        WeekDay(name: "S")
-    ]
-
     init() {
+        // Start with current date's calendar range
+        let currentDate = Date()
         _days = FetchRequest(
             sortDescriptors: [NSSortDescriptor(keyPath: \Day.date, ascending: true)],
             predicate: NSPredicate(
                 format: "(date >= %@) AND (date <= %@)",
-                Date().startOfCalendarWithPrefixDays as CVarArg,
-                Date().endOfCalendarWithSuffixDays as CVarArg
+                currentDate.startOfCalendarWithPrefixDays as CVarArg,
+                currentDate.endOfCalendarWithSuffixDays as CVarArg
             )
         )
     }
@@ -88,15 +74,8 @@ struct CalendarView: View {
 
     var body: some View {
         NavigationView {
-            VStack() {
-                HStack {
-                    ForEach(daysOfWeek) { day in
-                        Text(day.name)
-                            .fontWeight(.black)
-                            .foregroundStyle(.orange)
-                            .frame(maxWidth: .infinity)
-                    }
-                }
+            VStack {
+                CalendarHeaderView()
                 
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 7)) {
                     ForEach(days) { day in
@@ -138,7 +117,7 @@ struct CalendarView: View {
                 }
                 Spacer()
             }
-            .navigationTitle(currentDate.formatted(.dateTime.month(.wide)))
+            .navigationTitle(currentDate.formatted(.dateTime.month(.wide).year()))
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     HStack {
@@ -153,6 +132,7 @@ struct CalendarView: View {
                                 Image(systemName: "chevron.left")
                                     .foregroundStyle(.orange)
                             }
+                            .disabled(currentDate.startOfMonth <= Date().startOfPreviousAllowedYear)
                             
                             Button {
                                 currentDate = Date()
@@ -175,6 +155,7 @@ struct CalendarView: View {
                                 Image(systemName: "chevron.right")
                                     .foregroundStyle(.orange)
                             }
+                            .disabled(currentDate.startOfMonth >= Date().endOfNextAllowedYear)
                         }
                     }
                 }
@@ -207,11 +188,16 @@ struct CalendarView: View {
             }
             .onAppear {
                 if days.isEmpty {
-                    createMonthDays(for: currentDate.startOfPreviousMonth)
-                    createMonthDays(for: currentDate)
-                    createMonthDays(for: currentDate.startOfNextMonth)
-                    updateDaysFetchRequest()
+                    // Create days from start of previous year to end of next year
+                    var date = Date().startOfPreviousAllowedYear
+                    while date <= Date().endOfNextAllowedYear {
+                        createMonthDays(for: date)
+                        date = date.startOfNextMonth
+                    }
                 }
+                // Always update the fetch request to show current month
+                updateDaysFetchRequest()
+                
                 if settings.isEmpty {
                     let newSettings = CalendarViewSettings(context: viewContext)
                     newSettings.showOnlyMonthDays = false
@@ -235,15 +221,24 @@ struct CalendarView: View {
 
     func createMonthDays(for date: Date) {
         if !daysExist(for: date) {
-            for dayOffset in 0..<date.numberOfDaysInMonth {
+            // Get the start and end of the month
+            let startOfMonth = date.startOfMonth
+            let endOfMonth = Calendar.current.date(byAdding: DateComponents(month: 1, day: -1), to: startOfMonth)!
+            
+            // Create a day for each date in the month
+            var currentDate = startOfMonth
+            while currentDate <= endOfMonth {
                 let newDay = Day(context: viewContext)
-                newDay.date = Calendar.current.date(byAdding: .day, value: dayOffset, to: date.startOfMonth) ?? Date()
+                newDay.date = currentDate
                 newDay.didStudy = false
+                
+                // Move to next day
+                currentDate = Calendar.current.date(byAdding: .day, value: 1, to: currentDate)!
             }
             
             do {
                 try viewContext.save()
-                print("\(date.monthFullName) days created")
+                print("\(date.monthFullName) \(date.yearInt) days created")
             } catch {
                 print("Failed to save context: \(error)")
             }

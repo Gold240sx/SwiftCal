@@ -28,7 +28,7 @@ struct StreakView: View {
            
         }.offset(y: -20)
             .onAppear { streakValue = calculateStreakValue() }
-            .onChange(of: days.count) { _ in
+            .onChange(of: days.count) { 
                 streakValue = calculateStreakValue()
             }
     }

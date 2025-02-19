@@ -75,4 +75,28 @@ extension Date {
     var startOfTomorrow: Date {
         Calendar.current.date(byAdding: .day, value: 1, to: startOfDay)!
     }
+
+    var startOfPreviousYear: Date {
+        Calendar.current.date(byAdding: .year, value: -1, to: self)!
+    }
+
+    var startOfYear: Date {
+        Calendar.current.dateInterval(of: .year, for: self)!.start
+    }
+
+    var yearInt: Int {
+        Calendar.current.component(.year, from: self)
+    }
+
+    var startOfPreviousAllowedYear: Date {
+        let calendar = Calendar.current
+        let previousYear = calendar.date(byAdding: .year, value: -1, to: self)!
+        return calendar.date(from: DateComponents(year: calendar.component(.year, from: previousYear), month: 1, day: 1))!
+    }
+
+    var endOfNextAllowedYear: Date {
+        let calendar = Calendar.current
+        let nextYear = calendar.date(byAdding: .year, value: 1, to: self)!
+        return calendar.date(from: DateComponents(year: calendar.component(.year, from: nextYear), month: 12, day: 31))!
+    }
 }
