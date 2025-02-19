@@ -21,7 +21,7 @@ struct WidgetPersistence {
     }
     
     func getCurrentStreak() -> Int {
-        // Use the same streak calculation logic from StreakView
-        return StreakView.getStreakValue(context: container.viewContext)
+        // Use the Calculations struct instead of StreakView
+        return Calculations.getStreakValue(context: container.viewContext)
     }
 } 

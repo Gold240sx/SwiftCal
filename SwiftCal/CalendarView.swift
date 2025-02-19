@@ -102,8 +102,16 @@ struct CalendarView: View {
                                         do {
                                             try viewContext.save()
                                             WidgetCenter.shared.reloadTimelines(ofKind: "SwiftCalWidget")
-                                            let streak = StreakView.getStreakValue(context: viewContext)
-                                            print("👆 \(day.date!.dayInt) now studied. Current streak: \(streak) days")
+                                            
+                                            // Fetch the days and calculate streak
+                                            let fetchRequest: NSFetchRequest<Day> = Day.fetchRequest()
+                                            fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \Day.date, ascending: false)]
+                                            fetchRequest.predicate = NSPredicate(format: "date <= %@", Date().endOfDay as CVarArg)
+                                            
+                                            if let days = try? viewContext.fetch(fetchRequest) {
+                                                let streak = Calculations.calculateStreakValue(days: days)
+                                                print("👆 \(day.date!.dayInt) now studied. Current streak: \(streak) days")
+                                            }
                                         } catch {
                                             print("Failed to save context: \(error)")
                                         }

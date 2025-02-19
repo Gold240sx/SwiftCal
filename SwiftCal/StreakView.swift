@@ -27,9 +27,11 @@ struct StreakView: View {
                 .foregroundStyle(.secondary)
            
         }.offset(y: -20)
-            .onAppear { streakValue = calculateStreakValue() }
+            .onAppear { 
+                streakValue = Calculations.calculateStreakValue(days: Array(days))
+            }
             .onChange(of: days.count) { 
-                streakValue = calculateStreakValue()
+                streakValue = Calculations.calculateStreakValue(days: Array(days))
             }
     }
 }
