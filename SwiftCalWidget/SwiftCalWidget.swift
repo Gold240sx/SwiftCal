@@ -150,9 +150,31 @@ struct SwiftCalWidget: Widget {
     }
 }
 
+// Add this helper function above the preview
+private func generatePreviewDays() -> [Day] {
+    let context = PersistenceController.preview.container.viewContext
+    var days: [Day] = []
+    
+    // Get the start of the current month
+    let currentDate = Date()
+    let startOfMonth = currentDate.startOfMonth
+    
+    // Create 31 days starting from the beginning of the month
+    for dayOffset in 0..<31 {
+        let day = Day(context: context)
+        day.date = Calendar.current.date(byAdding: .day, value: dayOffset, to: startOfMonth)
+        // Randomly mark some days as studied
+        day.didStudy = Bool.random()
+        days.append(day)
+    }
+    
+    return days
+}
+
+// Update the preview
 #Preview(as: .systemMedium) {
     SwiftCalWidget()
 } timeline: {
-    CalendarEntry(date: .now, days: [], streak: 0, showOnlyMonthDays: false)
-    CalendarEntry(date: .now, days: [], streak: 3, showOnlyMonthDays: true)
+    CalendarEntry(date: .now, days: generatePreviewDays(), streak: 0, showOnlyMonthDays: false)
+    CalendarEntry(date: .now, days: generatePreviewDays(), streak: 3, showOnlyMonthDays: true)
 }
