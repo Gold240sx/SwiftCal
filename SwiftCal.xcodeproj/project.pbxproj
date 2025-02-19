@@ -10,6 +10,67 @@
 		E61EDB072D66102800202BF2 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E61EDB062D66102800202BF2 /* WidgetKit.framework */; };
 		E61EDB092D66102800202BF2 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E61EDB082D66102800202BF2 /* SwiftUI.framework */; };
 		E61EDB142D66102A00202BF2 /* SwiftCalWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E61EDB042D66102800202BF2 /* SwiftCalWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+<<<<<<< HEAD
+=======
+		E6DC95EB2D665F9200F6A4D9 /* HEAD in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95D22D665F9200F6A4D9 /* HEAD */; };
+		E6DC95EC2D665F9200F6A4D9 /* push-to-checkout.sample in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95C62D665F9200F6A4D9 /* push-to-checkout.sample */; };
+		E6DC95ED2D665F9200F6A4D9 /* pre-rebase.sample in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95C32D665F9200F6A4D9 /* pre-rebase.sample */; };
+		E6DC95EE2D665F9200F6A4D9 /* pre-push.sample in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95C22D665F9200F6A4D9 /* pre-push.sample */; };
+		E6DC95EF2D665F9200F6A4D9 /* fsmonitor-watchman.sample in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95BD2D665F9200F6A4D9 /* fsmonitor-watchman.sample */; };
+		E6DC95F02D665F9200F6A4D9 /* sendemail-validate.sample in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95C72D665F9200F6A4D9 /* sendemail-validate.sample */; };
+		E6DC95F12D665F9200F6A4D9 /* c8a567a9b8beceb4445533e6c16aa08d06668d in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95D62D665F9200F6A4D9 /* c8a567a9b8beceb4445533e6c16aa08d06668d */; };
+		E6DC95F22D665F9200F6A4D9 /* update.sample in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95C82D665F9200F6A4D9 /* update.sample */; };
+		E6DC95F32D665F9200F6A4D9 /* exclude in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95CA2D665F9200F6A4D9 /* exclude */; };
+		E6DC95F42D665F9200F6A4D9 /* b737da52c131146f732a29da1c19df63643d7c in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95D42D665F9200F6A4D9 /* b737da52c131146f732a29da1c19df63643d7c */; };
+		E6DC95F52D665F9200F6A4D9 /* HEAD in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95E82D665F9200F6A4D9 /* HEAD */; };
+		E6DC95F62D665F9200F6A4D9 /* applypatch-msg.sample in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95BB2D665F9200F6A4D9 /* applypatch-msg.sample */; };
+		E6DC95F72D665F9200F6A4D9 /* f51a48285dcec92337f401314e6ffa58f2840b in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95D82D665F9200F6A4D9 /* f51a48285dcec92337f401314e6ffa58f2840b */; };
+		E6DC95F82D665F9200F6A4D9 /* pre-commit.sample in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95C02D665F9200F6A4D9 /* pre-commit.sample */; };
+		E6DC95F92D665F9200F6A4D9 /* main in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95DF2D665F9200F6A4D9 /* main */; };
+		E6DC95FA2D665F9200F6A4D9 /* FETCH_HEAD in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95E72D665F9200F6A4D9 /* FETCH_HEAD */; };
+		E6DC95FB2D665F9200F6A4D9 /* pre-merge-commit.sample in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95C12D665F9200F6A4D9 /* pre-merge-commit.sample */; };
+		E6DC95FC2D665F9200F6A4D9 /* commit-msg.sample in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95BC2D665F9200F6A4D9 /* commit-msg.sample */; };
+		E6DC95FD2D665F9200F6A4D9 /* prepare-commit-msg.sample in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95C52D665F9200F6A4D9 /* prepare-commit-msg.sample */; };
+		E6DC95FE2D665F9200F6A4D9 /* index in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95E92D665F9200F6A4D9 /* index */; };
+		E6DC95FF2D665F9200F6A4D9 /* config in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95E52D665F9200F6A4D9 /* config */; };
+		E6DC96002D665F9200F6A4D9 /* pre-applypatch.sample in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95BF2D665F9200F6A4D9 /* pre-applypatch.sample */; };
+		E6DC96012D665F9200F6A4D9 /* main in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95DD2D665F9200F6A4D9 /* main */; };
+		E6DC96022D665F9200F6A4D9 /* pre-receive.sample in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95C42D665F9200F6A4D9 /* pre-receive.sample */; };
+		E6DC96032D665F9200F6A4D9 /* main in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95CE2D665F9200F6A4D9 /* main */; };
+		E6DC96042D665F9200F6A4D9 /* description in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95E62D665F9200F6A4D9 /* description */; };
+		E6DC96052D665F9200F6A4D9 /* post-update.sample in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95BE2D665F9200F6A4D9 /* post-update.sample */; };
+		E6DC96062D665F9200F6A4D9 /* main in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95CC2D665F9200F6A4D9 /* main */; };
+		E6DC96072D665F9200F6A4D9 /* COMMIT_EDITMSG in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95E42D665F9200F6A4D9 /* COMMIT_EDITMSG */; };
+		E6DC96082D665F9200F6A4D9 /* HEAD in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95D22D665F9200F6A4D9 /* HEAD */; };
+		E6DC96092D665F9200F6A4D9 /* push-to-checkout.sample in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95C62D665F9200F6A4D9 /* push-to-checkout.sample */; };
+		E6DC960A2D665F9200F6A4D9 /* pre-rebase.sample in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95C32D665F9200F6A4D9 /* pre-rebase.sample */; };
+		E6DC960B2D665F9200F6A4D9 /* pre-push.sample in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95C22D665F9200F6A4D9 /* pre-push.sample */; };
+		E6DC960C2D665F9200F6A4D9 /* fsmonitor-watchman.sample in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95BD2D665F9200F6A4D9 /* fsmonitor-watchman.sample */; };
+		E6DC960D2D665F9200F6A4D9 /* sendemail-validate.sample in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95C72D665F9200F6A4D9 /* sendemail-validate.sample */; };
+		E6DC960E2D665F9200F6A4D9 /* c8a567a9b8beceb4445533e6c16aa08d06668d in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95D62D665F9200F6A4D9 /* c8a567a9b8beceb4445533e6c16aa08d06668d */; };
+		E6DC960F2D665F9200F6A4D9 /* update.sample in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95C82D665F9200F6A4D9 /* update.sample */; };
+		E6DC96102D665F9200F6A4D9 /* exclude in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95CA2D665F9200F6A4D9 /* exclude */; };
+		E6DC96112D665F9200F6A4D9 /* b737da52c131146f732a29da1c19df63643d7c in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95D42D665F9200F6A4D9 /* b737da52c131146f732a29da1c19df63643d7c */; };
+		E6DC96122D665F9200F6A4D9 /* HEAD in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95E82D665F9200F6A4D9 /* HEAD */; };
+		E6DC96132D665F9200F6A4D9 /* applypatch-msg.sample in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95BB2D665F9200F6A4D9 /* applypatch-msg.sample */; };
+		E6DC96142D665F9200F6A4D9 /* f51a48285dcec92337f401314e6ffa58f2840b in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95D82D665F9200F6A4D9 /* f51a48285dcec92337f401314e6ffa58f2840b */; };
+		E6DC96152D665F9200F6A4D9 /* pre-commit.sample in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95C02D665F9200F6A4D9 /* pre-commit.sample */; };
+		E6DC96162D665F9200F6A4D9 /* main in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95DF2D665F9200F6A4D9 /* main */; };
+		E6DC96172D665F9200F6A4D9 /* FETCH_HEAD in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95E72D665F9200F6A4D9 /* FETCH_HEAD */; };
+		E6DC96182D665F9200F6A4D9 /* pre-merge-commit.sample in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95C12D665F9200F6A4D9 /* pre-merge-commit.sample */; };
+		E6DC96192D665F9200F6A4D9 /* commit-msg.sample in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95BC2D665F9200F6A4D9 /* commit-msg.sample */; };
+		E6DC961A2D665F9200F6A4D9 /* prepare-commit-msg.sample in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95C52D665F9200F6A4D9 /* prepare-commit-msg.sample */; };
+		E6DC961B2D665F9200F6A4D9 /* index in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95E92D665F9200F6A4D9 /* index */; };
+		E6DC961C2D665F9200F6A4D9 /* config in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95E52D665F9200F6A4D9 /* config */; };
+		E6DC961D2D665F9200F6A4D9 /* pre-applypatch.sample in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95BF2D665F9200F6A4D9 /* pre-applypatch.sample */; };
+		E6DC961E2D665F9200F6A4D9 /* main in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95DD2D665F9200F6A4D9 /* main */; };
+		E6DC961F2D665F9200F6A4D9 /* pre-receive.sample in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95C42D665F9200F6A4D9 /* pre-receive.sample */; };
+		E6DC96202D665F9200F6A4D9 /* main in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95CE2D665F9200F6A4D9 /* main */; };
+		E6DC96212D665F9200F6A4D9 /* description in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95E62D665F9200F6A4D9 /* description */; };
+		E6DC96222D665F9200F6A4D9 /* post-update.sample in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95BE2D665F9200F6A4D9 /* post-update.sample */; };
+		E6DC96232D665F9200F6A4D9 /* main in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95CC2D665F9200F6A4D9 /* main */; };
+		E6DC96242D665F9200F6A4D9 /* COMMIT_EDITMSG in Resources */ = {isa = PBXBuildFile; fileRef = E6DC95E42D665F9200F6A4D9 /* COMMIT_EDITMSG */; };
+>>>>>>> 665bf18 (Update)
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +103,38 @@
 		E61EDB062D66102800202BF2 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		E61EDB082D66102800202BF2 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		E61EDB1B2D66108500202BF2 /* SwiftCalWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SwiftCalWidgetExtension.entitlements; sourceTree = "<group>"; };
+<<<<<<< HEAD
+=======
+		E6DC95BB2D665F9200F6A4D9 /* applypatch-msg.sample */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "applypatch-msg.sample"; sourceTree = "<group>"; };
+		E6DC95BC2D665F9200F6A4D9 /* commit-msg.sample */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "commit-msg.sample"; sourceTree = "<group>"; };
+		E6DC95BD2D665F9200F6A4D9 /* fsmonitor-watchman.sample */ = {isa = PBXFileReference; lastKnownFileType = text.script.perl; path = "fsmonitor-watchman.sample"; sourceTree = "<group>"; };
+		E6DC95BE2D665F9200F6A4D9 /* post-update.sample */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "post-update.sample"; sourceTree = "<group>"; };
+		E6DC95BF2D665F9200F6A4D9 /* pre-applypatch.sample */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "pre-applypatch.sample"; sourceTree = "<group>"; };
+		E6DC95C02D665F9200F6A4D9 /* pre-commit.sample */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "pre-commit.sample"; sourceTree = "<group>"; };
+		E6DC95C12D665F9200F6A4D9 /* pre-merge-commit.sample */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "pre-merge-commit.sample"; sourceTree = "<group>"; };
+		E6DC95C22D665F9200F6A4D9 /* pre-push.sample */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "pre-push.sample"; sourceTree = "<group>"; };
+		E6DC95C32D665F9200F6A4D9 /* pre-rebase.sample */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "pre-rebase.sample"; sourceTree = "<group>"; };
+		E6DC95C42D665F9200F6A4D9 /* pre-receive.sample */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "pre-receive.sample"; sourceTree = "<group>"; };
+		E6DC95C52D665F9200F6A4D9 /* prepare-commit-msg.sample */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "prepare-commit-msg.sample"; sourceTree = "<group>"; };
+		E6DC95C62D665F9200F6A4D9 /* push-to-checkout.sample */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "push-to-checkout.sample"; sourceTree = "<group>"; };
+		E6DC95C72D665F9200F6A4D9 /* sendemail-validate.sample */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "sendemail-validate.sample"; sourceTree = "<group>"; };
+		E6DC95C82D665F9200F6A4D9 /* update.sample */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = update.sample; sourceTree = "<group>"; };
+		E6DC95CA2D665F9200F6A4D9 /* exclude */ = {isa = PBXFileReference; lastKnownFileType = text; path = exclude; sourceTree = "<group>"; };
+		E6DC95CC2D665F9200F6A4D9 /* main */ = {isa = PBXFileReference; lastKnownFileType = text; path = main; sourceTree = "<group>"; };
+		E6DC95CE2D665F9200F6A4D9 /* main */ = {isa = PBXFileReference; lastKnownFileType = text; path = main; sourceTree = "<group>"; };
+		E6DC95D22D665F9200F6A4D9 /* HEAD */ = {isa = PBXFileReference; lastKnownFileType = text; path = HEAD; sourceTree = "<group>"; };
+		E6DC95D42D665F9200F6A4D9 /* b737da52c131146f732a29da1c19df63643d7c */ = {isa = PBXFileReference; lastKnownFileType = file; path = b737da52c131146f732a29da1c19df63643d7c; sourceTree = "<group>"; };
+		E6DC95D62D665F9200F6A4D9 /* c8a567a9b8beceb4445533e6c16aa08d06668d */ = {isa = PBXFileReference; lastKnownFileType = file; path = c8a567a9b8beceb4445533e6c16aa08d06668d; sourceTree = "<group>"; };
+		E6DC95D82D665F9200F6A4D9 /* f51a48285dcec92337f401314e6ffa58f2840b */ = {isa = PBXFileReference; lastKnownFileType = file; path = f51a48285dcec92337f401314e6ffa58f2840b; sourceTree = "<group>"; };
+		E6DC95DD2D665F9200F6A4D9 /* main */ = {isa = PBXFileReference; lastKnownFileType = text; path = main; sourceTree = "<group>"; };
+		E6DC95DF2D665F9200F6A4D9 /* main */ = {isa = PBXFileReference; lastKnownFileType = text; path = main; sourceTree = "<group>"; };
+		E6DC95E42D665F9200F6A4D9 /* COMMIT_EDITMSG */ = {isa = PBXFileReference; lastKnownFileType = text; path = COMMIT_EDITMSG; sourceTree = "<group>"; };
+		E6DC95E52D665F9200F6A4D9 /* config */ = {isa = PBXFileReference; lastKnownFileType = text; path = config; sourceTree = "<group>"; };
+		E6DC95E62D665F9200F6A4D9 /* description */ = {isa = PBXFileReference; lastKnownFileType = text; path = description; sourceTree = "<group>"; };
+		E6DC95E72D665F9200F6A4D9 /* FETCH_HEAD */ = {isa = PBXFileReference; lastKnownFileType = text; path = FETCH_HEAD; sourceTree = "<group>"; };
+		E6DC95E82D665F9200F6A4D9 /* HEAD */ = {isa = PBXFileReference; lastKnownFileType = text; path = HEAD; sourceTree = "<group>"; };
+		E6DC95E92D665F9200F6A4D9 /* index */ = {isa = PBXFileReference; lastKnownFileType = file; path = index; sourceTree = "<group>"; };
+>>>>>>> 665bf18 (Update)
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -127,12 +220,199 @@
 		E61EDB052D66102800202BF2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
+=======
+				E6DC95EA2D665F9200F6A4D9 /* .git */,
+>>>>>>> 665bf18 (Update)
 				E61EDB062D66102800202BF2 /* WidgetKit.framework */,
 				E61EDB082D66102800202BF2 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+<<<<<<< HEAD
+=======
+		E6DC95C92D665F9200F6A4D9 /* hooks */ = {
+			isa = PBXGroup;
+			children = (
+				E6DC95BB2D665F9200F6A4D9 /* applypatch-msg.sample */,
+				E6DC95BC2D665F9200F6A4D9 /* commit-msg.sample */,
+				E6DC95BD2D665F9200F6A4D9 /* fsmonitor-watchman.sample */,
+				E6DC95BE2D665F9200F6A4D9 /* post-update.sample */,
+				E6DC95BF2D665F9200F6A4D9 /* pre-applypatch.sample */,
+				E6DC95C02D665F9200F6A4D9 /* pre-commit.sample */,
+				E6DC95C12D665F9200F6A4D9 /* pre-merge-commit.sample */,
+				E6DC95C22D665F9200F6A4D9 /* pre-push.sample */,
+				E6DC95C32D665F9200F6A4D9 /* pre-rebase.sample */,
+				E6DC95C42D665F9200F6A4D9 /* pre-receive.sample */,
+				E6DC95C52D665F9200F6A4D9 /* prepare-commit-msg.sample */,
+				E6DC95C62D665F9200F6A4D9 /* push-to-checkout.sample */,
+				E6DC95C72D665F9200F6A4D9 /* sendemail-validate.sample */,
+				E6DC95C82D665F9200F6A4D9 /* update.sample */,
+			);
+			path = hooks;
+			sourceTree = "<group>";
+		};
+		E6DC95CB2D665F9200F6A4D9 /* info */ = {
+			isa = PBXGroup;
+			children = (
+				E6DC95CA2D665F9200F6A4D9 /* exclude */,
+			);
+			path = info;
+			sourceTree = "<group>";
+		};
+		E6DC95CD2D665F9200F6A4D9 /* heads */ = {
+			isa = PBXGroup;
+			children = (
+				E6DC95CC2D665F9200F6A4D9 /* main */,
+			);
+			path = heads;
+			sourceTree = "<group>";
+		};
+		E6DC95CF2D665F9200F6A4D9 /* origin */ = {
+			isa = PBXGroup;
+			children = (
+				E6DC95CE2D665F9200F6A4D9 /* main */,
+			);
+			path = origin;
+			sourceTree = "<group>";
+		};
+		E6DC95D02D665F9200F6A4D9 /* remotes */ = {
+			isa = PBXGroup;
+			children = (
+				E6DC95CF2D665F9200F6A4D9 /* origin */,
+			);
+			path = remotes;
+			sourceTree = "<group>";
+		};
+		E6DC95D12D665F9200F6A4D9 /* refs */ = {
+			isa = PBXGroup;
+			children = (
+				E6DC95CD2D665F9200F6A4D9 /* heads */,
+				E6DC95D02D665F9200F6A4D9 /* remotes */,
+			);
+			path = refs;
+			sourceTree = "<group>";
+		};
+		E6DC95D32D665F9200F6A4D9 /* logs */ = {
+			isa = PBXGroup;
+			children = (
+				E6DC95D12D665F9200F6A4D9 /* refs */,
+				E6DC95D22D665F9200F6A4D9 /* HEAD */,
+			);
+			path = logs;
+			sourceTree = "<group>";
+		};
+		E6DC95D52D665F9200F6A4D9 /* 4f */ = {
+			isa = PBXGroup;
+			children = (
+				E6DC95D42D665F9200F6A4D9 /* b737da52c131146f732a29da1c19df63643d7c */,
+			);
+			path = 4f;
+			sourceTree = "<group>";
+		};
+		E6DC95D72D665F9200F6A4D9 /* bf */ = {
+			isa = PBXGroup;
+			children = (
+				E6DC95D62D665F9200F6A4D9 /* c8a567a9b8beceb4445533e6c16aa08d06668d */,
+			);
+			path = bf;
+			sourceTree = "<group>";
+		};
+		E6DC95D92D665F9200F6A4D9 /* f1 */ = {
+			isa = PBXGroup;
+			children = (
+				E6DC95D82D665F9200F6A4D9 /* f51a48285dcec92337f401314e6ffa58f2840b */,
+			);
+			path = f1;
+			sourceTree = "<group>";
+		};
+		E6DC95DA2D665F9200F6A4D9 /* info */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = info;
+			sourceTree = "<group>";
+		};
+		E6DC95DB2D665F9200F6A4D9 /* pack */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = pack;
+			sourceTree = "<group>";
+		};
+		E6DC95DC2D665F9200F6A4D9 /* objects */ = {
+			isa = PBXGroup;
+			children = (
+				E6DC95D52D665F9200F6A4D9 /* 4f */,
+				E6DC95D72D665F9200F6A4D9 /* bf */,
+				E6DC95D92D665F9200F6A4D9 /* f1 */,
+				E6DC95DA2D665F9200F6A4D9 /* info */,
+				E6DC95DB2D665F9200F6A4D9 /* pack */,
+			);
+			path = objects;
+			sourceTree = "<group>";
+		};
+		E6DC95DE2D665F9200F6A4D9 /* heads */ = {
+			isa = PBXGroup;
+			children = (
+				E6DC95DD2D665F9200F6A4D9 /* main */,
+			);
+			path = heads;
+			sourceTree = "<group>";
+		};
+		E6DC95E02D665F9200F6A4D9 /* origin */ = {
+			isa = PBXGroup;
+			children = (
+				E6DC95DF2D665F9200F6A4D9 /* main */,
+			);
+			path = origin;
+			sourceTree = "<group>";
+		};
+		E6DC95E12D665F9200F6A4D9 /* remotes */ = {
+			isa = PBXGroup;
+			children = (
+				E6DC95E02D665F9200F6A4D9 /* origin */,
+			);
+			path = remotes;
+			sourceTree = "<group>";
+		};
+		E6DC95E22D665F9200F6A4D9 /* tags */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = tags;
+			sourceTree = "<group>";
+		};
+		E6DC95E32D665F9200F6A4D9 /* refs */ = {
+			isa = PBXGroup;
+			children = (
+				E6DC95DE2D665F9200F6A4D9 /* heads */,
+				E6DC95E12D665F9200F6A4D9 /* remotes */,
+				E6DC95E22D665F9200F6A4D9 /* tags */,
+			);
+			path = refs;
+			sourceTree = "<group>";
+		};
+		E6DC95EA2D665F9200F6A4D9 /* .git */ = {
+			isa = PBXGroup;
+			children = (
+				E6DC95C92D665F9200F6A4D9 /* hooks */,
+				E6DC95CB2D665F9200F6A4D9 /* info */,
+				E6DC95D32D665F9200F6A4D9 /* logs */,
+				E6DC95DC2D665F9200F6A4D9 /* objects */,
+				E6DC95E32D665F9200F6A4D9 /* refs */,
+				E6DC95E42D665F9200F6A4D9 /* COMMIT_EDITMSG */,
+				E6DC95E52D665F9200F6A4D9 /* config */,
+				E6DC95E62D665F9200F6A4D9 /* description */,
+				E6DC95E72D665F9200F6A4D9 /* FETCH_HEAD */,
+				E6DC95E82D665F9200F6A4D9 /* HEAD */,
+				E6DC95E92D665F9200F6A4D9 /* index */,
+			);
+			path = .git;
+			sourceTree = "<group>";
+		};
+>>>>>>> 665bf18 (Update)
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -225,6 +505,38 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+<<<<<<< HEAD
+=======
+				E6DC96082D665F9200F6A4D9 /* HEAD in Resources */,
+				E6DC96092D665F9200F6A4D9 /* push-to-checkout.sample in Resources */,
+				E6DC960A2D665F9200F6A4D9 /* pre-rebase.sample in Resources */,
+				E6DC960B2D665F9200F6A4D9 /* pre-push.sample in Resources */,
+				E6DC960C2D665F9200F6A4D9 /* fsmonitor-watchman.sample in Resources */,
+				E6DC960D2D665F9200F6A4D9 /* sendemail-validate.sample in Resources */,
+				E6DC960E2D665F9200F6A4D9 /* c8a567a9b8beceb4445533e6c16aa08d06668d in Resources */,
+				E6DC960F2D665F9200F6A4D9 /* update.sample in Resources */,
+				E6DC96102D665F9200F6A4D9 /* exclude in Resources */,
+				E6DC96112D665F9200F6A4D9 /* b737da52c131146f732a29da1c19df63643d7c in Resources */,
+				E6DC96122D665F9200F6A4D9 /* HEAD in Resources */,
+				E6DC96132D665F9200F6A4D9 /* applypatch-msg.sample in Resources */,
+				E6DC96142D665F9200F6A4D9 /* f51a48285dcec92337f401314e6ffa58f2840b in Resources */,
+				E6DC96152D665F9200F6A4D9 /* pre-commit.sample in Resources */,
+				E6DC96162D665F9200F6A4D9 /* main in Resources */,
+				E6DC96172D665F9200F6A4D9 /* FETCH_HEAD in Resources */,
+				E6DC96182D665F9200F6A4D9 /* pre-merge-commit.sample in Resources */,
+				E6DC96192D665F9200F6A4D9 /* commit-msg.sample in Resources */,
+				E6DC961A2D665F9200F6A4D9 /* prepare-commit-msg.sample in Resources */,
+				E6DC961B2D665F9200F6A4D9 /* index in Resources */,
+				E6DC961C2D665F9200F6A4D9 /* config in Resources */,
+				E6DC961D2D665F9200F6A4D9 /* pre-applypatch.sample in Resources */,
+				E6DC961E2D665F9200F6A4D9 /* main in Resources */,
+				E6DC961F2D665F9200F6A4D9 /* pre-receive.sample in Resources */,
+				E6DC96202D665F9200F6A4D9 /* main in Resources */,
+				E6DC96212D665F9200F6A4D9 /* description in Resources */,
+				E6DC96222D665F9200F6A4D9 /* post-update.sample in Resources */,
+				E6DC96232D665F9200F6A4D9 /* main in Resources */,
+				E6DC96242D665F9200F6A4D9 /* COMMIT_EDITMSG in Resources */,
+>>>>>>> 665bf18 (Update)
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,6 +544,38 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+<<<<<<< HEAD
+=======
+				E6DC95EB2D665F9200F6A4D9 /* HEAD in Resources */,
+				E6DC95EC2D665F9200F6A4D9 /* push-to-checkout.sample in Resources */,
+				E6DC95ED2D665F9200F6A4D9 /* pre-rebase.sample in Resources */,
+				E6DC95EE2D665F9200F6A4D9 /* pre-push.sample in Resources */,
+				E6DC95EF2D665F9200F6A4D9 /* fsmonitor-watchman.sample in Resources */,
+				E6DC95F02D665F9200F6A4D9 /* sendemail-validate.sample in Resources */,
+				E6DC95F12D665F9200F6A4D9 /* c8a567a9b8beceb4445533e6c16aa08d06668d in Resources */,
+				E6DC95F22D665F9200F6A4D9 /* update.sample in Resources */,
+				E6DC95F32D665F9200F6A4D9 /* exclude in Resources */,
+				E6DC95F42D665F9200F6A4D9 /* b737da52c131146f732a29da1c19df63643d7c in Resources */,
+				E6DC95F52D665F9200F6A4D9 /* HEAD in Resources */,
+				E6DC95F62D665F9200F6A4D9 /* applypatch-msg.sample in Resources */,
+				E6DC95F72D665F9200F6A4D9 /* f51a48285dcec92337f401314e6ffa58f2840b in Resources */,
+				E6DC95F82D665F9200F6A4D9 /* pre-commit.sample in Resources */,
+				E6DC95F92D665F9200F6A4D9 /* main in Resources */,
+				E6DC95FA2D665F9200F6A4D9 /* FETCH_HEAD in Resources */,
+				E6DC95FB2D665F9200F6A4D9 /* pre-merge-commit.sample in Resources */,
+				E6DC95FC2D665F9200F6A4D9 /* commit-msg.sample in Resources */,
+				E6DC95FD2D665F9200F6A4D9 /* prepare-commit-msg.sample in Resources */,
+				E6DC95FE2D665F9200F6A4D9 /* index in Resources */,
+				E6DC95FF2D665F9200F6A4D9 /* config in Resources */,
+				E6DC96002D665F9200F6A4D9 /* pre-applypatch.sample in Resources */,
+				E6DC96012D665F9200F6A4D9 /* main in Resources */,
+				E6DC96022D665F9200F6A4D9 /* pre-receive.sample in Resources */,
+				E6DC96032D665F9200F6A4D9 /* main in Resources */,
+				E6DC96042D665F9200F6A4D9 /* description in Resources */,
+				E6DC96052D665F9200F6A4D9 /* post-update.sample in Resources */,
+				E6DC96062D665F9200F6A4D9 /* main in Resources */,
+				E6DC96072D665F9200F6A4D9 /* COMMIT_EDITMSG in Resources */,
+>>>>>>> 665bf18 (Update)
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

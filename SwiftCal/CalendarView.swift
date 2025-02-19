@@ -19,6 +19,11 @@ struct CalendarView: View {
     
     @State private var showingSettings = false
     @State private var currentDate = Date()
+<<<<<<< HEAD
+=======
+    @State private var dragOffset: CGFloat = 0
+    @State private var isDragging = false
+>>>>>>> 665bf18 (Update)
 
     init() {
         // Start with current date's calendar range
@@ -43,7 +48,17 @@ struct CalendarView: View {
             set: { newValue in
                 if let settings = settings.first {
                     settings.showOnlyMonthDays = newValue
+<<<<<<< HEAD
                     try? viewContext.save()
+=======
+                    do {
+                        try viewContext.save()
+                        // Reload widget to reflect the new setting
+                        WidgetCenter.shared.reloadTimelines(ofKind: "SwiftCalWidget")
+                    } catch {
+                        print("Failed to save settings: \(error)")
+                    }
+>>>>>>> 665bf18 (Update)
                 }
             }
         )
@@ -73,11 +88,45 @@ struct CalendarView: View {
         )
     }
 
+<<<<<<< HEAD
+=======
+     private func handleDayTap(_ day: Day) {
+        if day.date!.monthInt != currentDate.monthInt {
+            currentDate = day.date!
+            createMonthDays(for: currentDate.startOfPreviousMonth)
+            createMonthDays(for: currentDate)
+            createMonthDays(for: currentDate.startOfNextMonth)
+            updateDaysFetchRequest()
+        } else if day.date! < Date().startOfTomorrow {
+            day.didStudy.toggle()
+            do {
+                try viewContext.save()
+                WidgetCenter.shared.reloadTimelines(ofKind: "SwiftCalWidget")
+                
+                // Fetch the days and calculate streak
+                let fetchRequest: NSFetchRequest<Day> = Day.fetchRequest()
+                fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \Day.date, ascending: false)]
+                fetchRequest.predicate = NSPredicate(format: "date <= %@", Date().endOfDay as CVarArg)
+                
+                if let days = try? viewContext.fetch(fetchRequest) {
+                    let streak = Calculations.calculateStreakValue(days: days)
+                    print("👆 \(day.date!.dayInt) now studied. Current streak: \(streak) days")
+                }
+            } catch {
+                print("Failed to save context: \(error)")
+            }
+        } else {
+            print("Can't study in the future!!")
+        }
+    }
+
+>>>>>>> 665bf18 (Update)
     var body: some View {
         NavigationView {
             VStack {
                 CalendarHeaderView()
                 
+<<<<<<< HEAD
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 7)) {
                     ForEach(days) { day in
                         if !showOnlyMonthDays || day.date!.monthInt == currentDate.monthInt {
@@ -93,10 +142,49 @@ struct CalendarView: View {
                                 .onTapGesture {
                                     if day.date!.monthInt != currentDate.monthInt {
                                         currentDate = day.date!
+=======
+              CalendarGridView(
+                    days: days,
+                    currentDate: currentDate,
+                    showOnlyMonthDays: showOnlyMonthDays,
+                    dragOffset: dragOffset,
+                    onDayTap: handleDayTap
+                )
+                Spacer()
+            }
+                      .gesture(
+                DragGesture(minimumDistance: 50)
+                    .onChanged { gesture in
+                        isDragging = true
+                        dragOffset = gesture.translation.width
+                    }
+                    .onEnded { gesture in
+                        let horizontalAmount = gesture.translation.width
+                        let verticalAmount = gesture.translation.height
+                        
+                        // Only respond to mostly horizontal swipes
+                        if abs(horizontalAmount) > abs(verticalAmount) {
+                            let threshold: CGFloat = 50
+                            
+                            if horizontalAmount < -threshold {  // Swipe left
+                                if currentDate.startOfMonth < Date().endOfNextAllowedYear {
+                                    withAnimation(.easeInOut(duration: 0.3)) {
+                                        dragOffset = -UIScreen.main.bounds.width
+                                        currentDate = currentDate.startOfNextMonth
+                                    }
+                                    
+                                    // After animation, reset and update
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                        dragOffset = UIScreen.main.bounds.width
+                                        withAnimation(.easeInOut(duration: 0.3)) {
+                                            dragOffset = 0
+                                        }
+>>>>>>> 665bf18 (Update)
                                         createMonthDays(for: currentDate.startOfPreviousMonth)
                                         createMonthDays(for: currentDate)
                                         createMonthDays(for: currentDate.startOfNextMonth)
                                         updateDaysFetchRequest()
+<<<<<<< HEAD
                                     } else if day.date! < Date().startOfTomorrow {
                                         day.didStudy.toggle()
                                         do {
@@ -127,6 +215,43 @@ struct CalendarView: View {
                 }
                 Spacer()
             }
+=======
+                                    }
+                                } else {
+                                    withAnimation { dragOffset = 0 }
+                                }
+                            } else if horizontalAmount > threshold {  // Swipe right
+                                if currentDate.startOfMonth > Date().startOfPreviousAllowedYear {
+                                    withAnimation(.easeInOut(duration: 0.3)) {
+                                        dragOffset = UIScreen.main.bounds.width
+                                        currentDate = currentDate.startOfPreviousMonth
+                                    }
+                                    
+                                    // After animation, reset and update
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                        dragOffset = -UIScreen.main.bounds.width
+                                        withAnimation(.easeInOut(duration: 0.3)) {
+                                            dragOffset = 0
+                                        }
+                                        createMonthDays(for: currentDate.startOfPreviousMonth)
+                                        createMonthDays(for: currentDate)
+                                        createMonthDays(for: currentDate.startOfNextMonth)
+                                        updateDaysFetchRequest()
+                                    }
+                                } else {
+                                    withAnimation { dragOffset = 0 }
+                                }
+                            } else {
+                                withAnimation { dragOffset = 0 }
+                            }
+                        } else {
+                            withAnimation { dragOffset = 0 }
+                        }
+                        
+                        isDragging = false
+                    }
+            )
+>>>>>>> 665bf18 (Update)
             .navigationTitle(currentDate.formatted(.dateTime.month(.wide).year()))
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
